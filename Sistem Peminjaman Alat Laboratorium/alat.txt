@@ -1,0 +1,10 @@
+1|Kertas Lakmus|Whatman|Litmus-PH|2023|18
+2|Penjepit|Iwaki|Clamp-Lab|2021|3
+3|Spatula|Fisherbrand|SS-150|2022|14
+4|Statip|Pyrex|Stand-BT50|2021|4
+5|Kawat Kasa|Hario|Wire-100|2020|8
+6|Cawan Porselen|IKA|PM-200|2022|6
+7|Filler|Eppendorf|EZ-Fill|2023|12
+8|Kaki Tiga|Hario|Tripod-Lab|2020|7
+9|Neraca Analitik|Mettler Toledo|AX205|2022|3
+10|Desikator|Duran|Vac-Glass|2021|2
