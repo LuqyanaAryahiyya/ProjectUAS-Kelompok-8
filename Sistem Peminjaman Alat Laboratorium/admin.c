@@ -71,3 +71,46 @@ void tambahAlat(){
 void editAlat(){
     FILE *fp = fopen("alat.txt", "r");
     FILE *temp = fopen("temp.txt", "w");
+
+    if(!fp || !temp){
+        printf("Gagal membuka file!\n");
+        return;
+    }
+
+    item tool;
+    unsigned int id;
+    int found = 0;
+
+    printf("Masukkan ID alat yang ingin diedit: ");
+    scanf("%u", &id);
+
+    while(fscanf(fp, "%u|%49[^|]|%49[^|]|%49[^|]|%u|%u\n", &tool.Id_Alat, tool.Nama_Alat, tool.Merek_Alat, tool.Model_Alat, &tool.Tahun_Produksi, &tool.Jumlah_unit) == 6){
+        if(tool.Id_Alat == id){
+            found = 1;
+            getchar();
+            printf("Masukkan Nama Baru: ");
+            fgets(tool.Nama_Alat, sizeof(tool.Nama_Alat), stdin);
+            tool.Nama_Alat[strcspn(tool.Nama_Alat, "\n")] = '\0';
+
+            printf("Masukkan Merek Baru: ");
+            fgets(tool.Merek_Alat, sizeof(tool.Merek_Alat), stdin);
+            tool.Merek_Alat[strcspn(tool.Merek_Alat, "\n")] = '\0';
+
+            printf("Masukkan Model Baru: ");
+            fgets(tool.Model_Alat, sizeof(tool.Model_Alat), stdin);
+            tool.Model_Alat[strcspn(tool.Model_Alat, "\n")] = '\0';
+
+            printf("Masukkan Tahun Produksi: ");
+            scanf("%u", &tool.Tahun_Produksi);
+            printf("Masukkan Jumlah Unit: ");
+            scanf("%u", &tool.Jumlah_unit);
+        }
+
+        fprintf(temp, "%u|%s|%s|%s|%u|%u\n", tool.Id_Alat, tool.Nama_Alat, tool.Merek_Alat, tool.Model_Alat, tool.Tahun_Produksi, tool.Jumlah_unit);
+    }
+
+    fclose(fp);
+    fclose(temp);
+    remove("alat.txt");
+    rename("temp.txt", "alat.txt");
+
