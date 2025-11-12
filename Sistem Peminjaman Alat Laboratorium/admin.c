@@ -8,7 +8,7 @@ void garis(){
 // Fungsi untuk menampilkan daftar alat
 void tampilAlat(){
     FILE *fp = fopen("alat.txt", "r");
-    if(!fp){
+    if(fp == NULL){
         printf("Data alat tidak ditemukan.\n");
         return;
     }
@@ -19,9 +19,9 @@ void tampilAlat(){
            "ID", "Nama", "Merek", "Model", "Tahun", "Jumlah");
     garis();
 
-    while(fscanf(fp, "%u|%49[^|]|%49[^|]|%49[^|]|%u|%u\n", &tool.id, tool.nama, tool.merek, tool.model, &tool.tahun, &tool.jumlah) == 6){
-        if(tool.jumlah > 0){
-            printf("%-5u %-20s %-15s %-10s %-10u %-10u\n", tool.id, tool.nama, tool.merek,  tool.model, tool.tahun, tool.jumlah);
+     while(fscanf(fp, "%u|%49[^|]|%49[^|]|%49[^|]|%u|%u\n", &tool.Id_Alat, tool.Nama_Alat, tool.Merek_Alat, tool.Model_Alat, &tool.Tahun_Produksi, &tool.Jumlah_unit) == 6){
+        if(tool.Jumlah_unit > 0){
+            printf("%-5u %-20s %-15s %-10s %-10u %-10u\n", tool.Id_Alat, tool.Nama_Alat, tool.Merek_Alat,  tool.Model_Alat, tool.Tahun_Produksi, tool.Jumlah_unit);
             }
     }
 
@@ -114,3 +114,46 @@ void editAlat(){
     remove("alat.txt");
     rename("temp.txt", "alat.txt");
 
+    if(found){
+        printf("Data alat berhasil diubah!\n");
+    }else{
+        printf("ID alat tidak ditemukan.\n");
+    }
+}
+
+// Fungsi untuk menghapus data alat
+void hapusAlat(){
+    FILE *fp = fopen("alat.txt", "r");
+    FILE *temp = fopen("temp.txt", "w");
+
+    if(!fp || !temp){
+        printf("Gagal membuka file!\n");
+        return;
+    }
+
+    item tool;
+    unsigned int id;
+    int found = 0;
+
+    printf("Masukkan ID alat yang akan dihapus: ");
+    scanf("%u", &id);
+
+    while(fscanf(fp, "%u|%49[^|]|%49[^|]|%49[^|]|%u|%u\n", &tool.Id_Alat, tool.Nama_Alat, tool.Merek_Alat, tool.Model_Alat, &tool.Tahun_Produksi, &tool.Jumlah_unit) == 6){
+        if(tool.Id_Alat != id){
+            fprintf(temp, "%u|%s|%s|%s|%u|%u\n", tool.Id_Alat, tool.Nama_Alat, tool.Merek_Alat, tool.Model_Alat, tool.Tahun_Produksi,tool.Jumlah_unit);
+        }else{
+            found = 1;
+        }
+    }
+
+    fclose(fp);
+    fclose(temp);
+    remove("alat.txt");
+    rename("temp.txt", "alat.txt");
+
+    if(found){
+        printf("Data alat berhasil dihapus!\n");
+    }else{
+        printf("ID alat tidak ditemukan.\n");
+    }
+}
