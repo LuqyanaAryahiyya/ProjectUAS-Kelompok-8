@@ -33,3 +33,12 @@ void tampilAlat();
 void tambahAlat();
 void editAlat();
 void hapusAlat();
+
+// Deklarasi fungsi user
+void totalalat();
+void alatdipinjam();
+void minjamalat(const char *username);
+void balikinalat(const char *username);
+void menuUser(const char *username);
+
+#endif
