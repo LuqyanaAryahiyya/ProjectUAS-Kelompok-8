@@ -59,3 +59,40 @@ void menuUser(const char *username){ // Menerima username sebagai parameter
             break;
             case 3:
             balikinalat(username);
+            break;
+            case 4:
+            alatdipinjam();
+            break;
+            case 5:
+            printf("Keluar dari menu user...\n"); break;
+            default:
+            printf("Pilihan tidak valid!\n");getchar(); getchar();break;
+        }        
+    }while(pilihan != 5); // Ulangi sampai user memilih untuk keluar
+}
+
+// Fungsi utama
+int main(int argc, char *argv[]){
+    if(argc != 3){
+        printf("Cara penggunaan: %s <username> <password>\n", argv[0]);
+        printf("Contoh: %s admin admin123\n", argv[0]);
+        return 1;
+    }
+
+    char role[10];
+    if(!login(argv[1], argv[2], role)){
+        printf("Login gagal! Username atau password salah.\n");
+        return 1;
+    }
+    printf("Login berhasil! Selamat datang, %s\n", role);
+
+    if(strcmp(role, "admin") == 0){
+        menuAdmin();
+    }else if(strcmp(role, "user") == 0){
+        menuUser(argv[1]);  // kirim username ke menu user
+    }else{
+        printf("Role tidak dikenali!\n");
+    }
+
+    return 0;
+}
