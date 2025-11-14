@@ -27,7 +27,3 @@ void menuAdmin(){
             case 4: hapusAlat(); 
             break;
             case 5:
-            printf("Keluar dari menu admin...\n");
-            break;
-            default:
-            printf("Pilihan tidak valid!\n");
