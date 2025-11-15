@@ -82,3 +82,26 @@ void minjamalat(const char *username){
 
 // Fungsi mengembalikan alat
 void balikinalat(const char *username){ // Menerima
+    FILE *fp = fopen("alat.txt", "r");
+    FILE *temp = fopen("temp.txt", "w");
+    FILE *pinjam = fopen("peminjaman.txt", "r");
+    FILE *pinjam_temp = fopen("pinjam_temp.txt", "w");
+    if(!fp || !temp || !pinjam || !pinjam_temp){
+        printf("Gagal membuka file!\n");
+        return;
+    }
+    unsigned int id;
+    int found = 0, valid = 0; // found untuk menandai apakah alat ditemukan, valid untuk menandai apakah alat dipinjam oleh user
+    item tool;
+    printf("Masukkan ID alat yang ingin dikembalikan: ");
+    scanf("%u", &id); // Membaca ID alat dari input user
+
+    char file_user[50], nama[50], merek[50]; // Variabel untuk menyimpan data dari file peminjaman
+    unsigned int file_id; // Variabel untuk menyimpan ID alat dari file peminjaman
+
+    while(fscanf(pinjam, "%49[^|]|%u|%49[^|]|%49[^\n]\n", file_user, &file_id, nama, merek) == 4){ 
+        if(strcmp(file_user, username) == 0 && file_id == id){ // strcmp untuk membandingkan string == 0 berarti sama
+            valid = 1; // Menandai bahwa alat ini dipinjam oleh user
+        }else{
+            fprintf(pinjam_temp, "%s|%u|%s|%s\n", file_user, file_id, nama, merek);
+        }
