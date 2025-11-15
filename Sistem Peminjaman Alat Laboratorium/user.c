@@ -26,3 +26,13 @@ void alatdipinjam(){
     if (fp == NULL) {
         printf("Belum ada data peminjaman.\n");
         return;
+    }
+    garis();
+    printf("Daftar alat yang sedang dipinjam:\n");
+    garis();
+    printf("%-20s %-5s %-20s %-15s\n", "User", "ID", "Nama Alat", "Merek"); // Header tabel
+    garis();
+    char user[50], nama[50], merek[50];
+    unsigned int id;
+    while(fscanf(fp, "%49[^|]|%u|%49[^|]|%49[^\n]\n", user, &id, nama, merek) == 4){ // Membaca data peminjaman
+        printf("%-20s %-5u %-20s %-15s\n", user, id, nama, merek); // Menampilkan data peminjaman
