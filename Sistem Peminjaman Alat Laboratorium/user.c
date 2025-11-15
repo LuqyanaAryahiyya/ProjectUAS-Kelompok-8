@@ -59,3 +59,26 @@ void minjamalat(const char *username){
         if(tool.Id_Alat == id){ 
             found = 1; // Menandai bahwa alat ditemukan
             if(tool.Jumlah_unit > 0){
+                tool.Jumlah_unit--; // Mengurangi jumlah unit alat
+                fprintf(pinjam, "%s|%u|%s|%s\n", username, tool.Id_Alat, tool.Nama_Alat, tool.Merek_Alat);
+                printf("Berhasil meminjam %s!\n", tool.Nama_Alat);
+            }else{
+                printf("Stok habis!\n");
+            }
+        }
+        fprintf(temp, "%u|%s|%s|%s|%u|%u\n", tool.Id_Alat, tool.Nama_Alat, tool.Merek_Alat, tool.Model_Alat, tool.Tahun_Produksi, tool.Jumlah_unit);
+    }
+    fclose(fp);
+    fclose(temp);
+    fclose(pinjam);
+    if(found){ // Jika alat ditemukan, perbarui file alat.txt
+        remove("alat.txt"); 
+        rename("temp.txt", "alat.txt"); 
+    }else{
+        remove("temp.txt"); 
+        printf("ID tidak ditemukan.\n");
+    }
+}
+
+// Fungsi mengembalikan alat
+void balikinalat(const char *username){ // Menerima
