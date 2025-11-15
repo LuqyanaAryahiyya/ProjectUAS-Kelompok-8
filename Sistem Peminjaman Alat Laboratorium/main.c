@@ -75,7 +75,7 @@ void menuUser(const char *username){ // Menerima username sebagai parameter
 int main(int argc, char *argv[]){
     if(argc != 3){
         printf("Cara penggunaan: %s <username> <password>\n", argv[0]);
-        printf("Contoh: %s admin admin123\n", argv[0]);
+        printf("Contoh: %s admin 123\n", argv[0]);
         return 1;
     }
 
