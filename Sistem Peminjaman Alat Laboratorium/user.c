@@ -105,3 +105,35 @@ void balikinalat(const char *username){ // Menerima
         }else{
             fprintf(pinjam_temp, "%s|%u|%s|%s\n", file_user, file_id, nama, merek);
         }
+}
+    fclose(pinjam);
+    fclose(pinjam_temp);
+    // Update alat jika valid
+    while(fscanf(fp, "%u|%49[^|]|%49[^|]|%49[^|]|%u|%u\n", &tool.Id_Alat, tool.Nama_Alat, tool.Merek_Alat, tool.Model_Alat, &tool.Tahun_Produksi, &tool.Jumlah_unit) == 6){
+        if(tool.Id_Alat == id){ // Jika alat dengan ID tersebut ditemukan
+            found = 1;
+            if(valid){
+                tool.Jumlah_unit++;
+                printf("Berhasil mengembalikan %s!\n", tool.Nama_Alat); 
+            }
+        }
+        fprintf(temp, "%u|%s|%s|%s|%u|%u\n", tool.Id_Alat, tool.Nama_Alat, tool.Merek_Alat, tool.Model_Alat, tool.Tahun_Produksi, tool.Jumlah_unit);
+    }
+    fclose(fp);
+    fclose(temp);
+    if(found){
+        remove("alat.txt"); 
+        rename("temp.txt", "alat.txt"); 
+        if(valid){
+            remove("peminjaman.txt"); 
+            rename("pinjam_temp.txt", "peminjaman.txt");
+        }else{
+            remove("pinjam_temp.txt"); 
+            printf("Alat ini tidak tercatat sebagai alat yang Anda pinjam.\n"); 
+        }
+    }else{
+        remove("temp.txt");
+        remove("pinjam_temp.txt");
+        printf("ID alat tidak ditemukan.\n");
+    }
+}
