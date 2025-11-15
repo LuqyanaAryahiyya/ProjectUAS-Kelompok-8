@@ -36,3 +36,26 @@ void alatdipinjam(){
     unsigned int id;
     while(fscanf(fp, "%49[^|]|%u|%49[^|]|%49[^\n]\n", user, &id, nama, merek) == 4){ // Membaca data peminjaman
         printf("%-20s %-5u %-20s %-15s\n", user, id, nama, merek); // Menampilkan data peminjaman
+   }
+    garis();
+    fclose(fp);
+}   
+
+// Fungsi meminjam alat
+void minjamalat(const char *username){ 
+    FILE *fp = fopen("alat.txt", "r"); 
+    FILE *temp = fopen("temp.txt", "w"); 
+    FILE *pinjam = fopen("peminjaman.txt", "a"); //membuka file peminjaman untuk menambah data
+    if(!fp || !temp || !pinjam){ 
+        printf("Gagal membuka file!\n");
+        return;
+    }
+    unsigned int id; // Variabel untuk menyimpan ID alat yang akan dipinjam
+    int found = 0; //  untuk menandai apakah alat ditemukan
+    item tool;
+    printf("Masukkan ID alat yang ingin dipinjam: ");
+    scanf("%u", &id); 
+    while(fscanf(fp, "%u|%49[^|]|%49[^|]|%49[^|]|%u|%u\n", &tool.Id_Alat, tool.Nama_Alat, tool.Merek_Alat, tool.Model_Alat, &tool.Tahun_Produksi, &tool.Jumlah_unit) == 6){
+        if(tool.Id_Alat == id){ 
+            found = 1; // Menandai bahwa alat ditemukan
+            if(tool.Jumlah_unit > 0){
